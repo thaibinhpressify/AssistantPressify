@@ -102,6 +102,9 @@ def _pressify_new_group_url() -> str:
 
 
 async def _post_json(url: str, payload: dict) -> tuple[int | None, str]:
+    cfg = load_config()
+    user_agent = (cfg.get("pressify_user_agent") or "PressifyAssistantBot/1.0").strip()
+
     def _do() -> tuple[int | None, str]:
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(
@@ -110,6 +113,7 @@ async def _post_json(url: str, payload: dict) -> tuple[int | None, str]:
             headers={"Content-Type": "application/json", "Accept": "application/json"},
             method="POST",
         )
+        req.add_header("User-Agent", user_agent)
         try:
             with urllib.request.urlopen(req, timeout=15) as resp:
                 body = resp.read().decode("utf-8", errors="replace")

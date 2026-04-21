@@ -11,4 +11,9 @@ def load_config() -> dict:
     endpoint_pressify = os.getenv("ENDPOINT_SYSTEM_PRESSIFY", "").strip()
     if endpoint_pressify.endswith("/"):
         endpoint_pressify = endpoint_pressify[:-1]
-    return {"token": token, "endpoint_pressify": endpoint_pressify}
+    pressify_user_agent = os.getenv("PRESSIFY_USER_AGENT", "PressifyAssistantBot/1.0").strip()
+    return {
+        "token": token,
+        "endpoint_pressify": endpoint_pressify,
+        "pressify_user_agent": pressify_user_agent,
+    }
