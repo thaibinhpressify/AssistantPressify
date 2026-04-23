@@ -98,7 +98,7 @@ def _pressify_new_group_url() -> str:
     base = (cfg.get("endpoint_pressify") or "").strip()
     if not base:
         return ""
-    return f"{base}/ntofication/assistants/new_group"
+    return f"{base}/notification/assistants/new_group"
 
 
 async def _post_json(url: str, payload: dict) -> tuple[int | None, str]:
